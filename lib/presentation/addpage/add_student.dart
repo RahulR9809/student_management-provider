@@ -43,7 +43,9 @@ class _AddStudentsState extends State<AddStudents> {
             key: formKey,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Consumer<AddPageProvider>(
+
+              child:
+               Consumer<AddPageProvider>(
                   builder: (context, addPageProvider, _) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,7 +235,7 @@ class _AddStudentsState extends State<AddStudents> {
       );
 
       await databaseHelper.insertStudent(student);
-      
+   
        nameEditingController.clear();
     ageEditingController.clear();
     placeEditingController.clear();

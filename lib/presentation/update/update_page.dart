@@ -37,7 +37,7 @@ class _UpdatePageState extends State<UpdatePage> {
   @override
   Widget build(BuildContext context) {
     final homeProvider = Provider.of<HomePageProvider>(context);
-
+homeProvider.refreshStudentList();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

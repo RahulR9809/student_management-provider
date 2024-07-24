@@ -6,24 +6,16 @@ import 'package:studentapp_provider/model/model.dart';
 class HomePageProvider extends ChangeNotifier {
   late DatabaseHelper databaseHelper;
   List<Student> students = [];
-  List<Student> filteredStudents = [];
+ List<Student> filteredStudents = [];
   bool noResult = false;
   String? profileImagePath;
   XFile? image;
-  late Student currentStudent;
+   Student? currentStudent;
 
   HomePageProvider() {
     databaseHelper = DatabaseHelper();
-    refreshStudentList();
   }
 
-  Future<void> refreshStudentList() async {
-    final studentList = await databaseHelper.getStudents();
-    students = studentList;
-    filteredStudents = List.from(students);
-    noResult = false;
-    notifyListeners();
-  }
 
   Future<void> updateStudent(Student updatedStudent) async {
     await databaseHelper.updateStudent(updatedStudent);
@@ -44,6 +36,15 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+    Future<void> refreshStudentList() async {
+    final studentList = await databaseHelper.getStudents();
+    students = studentList;
+      filteredStudents = students;
+    noResult = false;
+    notifyListeners();
+  }
+
+
   void setImage(XFile? img) {
     image = img;
     profileImagePath = img?.path;
@@ -56,14 +57,4 @@ class HomePageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setCurrentStudent(Student student) {
-    currentStudent = student;
-    profileImagePath = student.image;
-    notifyListeners();
-  }
-
-  void clearCurrentStudent() {
-    profileImagePath = null;
-    notifyListeners();
-  }
 }

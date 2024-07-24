@@ -25,7 +25,7 @@ class StudentDialog {
                     backgroundImage: student.image.isNotEmpty &&
                             File(student.image).existsSync()
                         ? FileImage(File(student.image))
-                        : const AssetImage('assets/default_avatar.png') as ImageProvider,
+                        : const AssetImage('assets/default_avatar.png'),
                   ),
                   IconButton(
                     onPressed: () {

@@ -20,8 +20,6 @@ class MyApp extends StatelessWidget {
       ChangeNotifierProvider(create: (_)=>AddPageProvider()),
       ChangeNotifierProvider(create: (_)=>HomePageProvider()),
       ChangeNotifierProvider(create: (_)=>StudentDetailProvider())
-   
-
     ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,3 +1,5 @@
+import 'package:studentapp_provider/db/db_functions.dart';
+
 class Student {
   final int? id;
   final String name;
@@ -19,18 +21,19 @@ class Student {
     required this.pincode,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      '_id': id,
-      'name': name,
-      'age': age,
-      'place': place,
-      'course': course,
-      'image': image,
-      'phone': phone,
-      'pincode': pincode,
-    };
-  }
+Map<String, dynamic> toMap() {
+  return {
+    DatabaseHelper.columnId: id,
+    DatabaseHelper.columnName: name,
+    DatabaseHelper.columnAge: age,
+    DatabaseHelper.columnPlace: place,
+    DatabaseHelper.columnCourse: course,
+    DatabaseHelper.columnImage: image,
+    DatabaseHelper.columnPhone: phone,
+    DatabaseHelper.columnPincode: pincode,
+  };
+}
+
 
   Student copyWith({
     int? id,

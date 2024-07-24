@@ -37,7 +37,7 @@ class Homepage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final homeprovider = Provider.of<HomePageProvider>(context);
+     final homeprovider = Provider.of<HomePageProvider>(context,listen: false);
     homeprovider.refreshStudentList();
     // ignore: deprecated_member_use
     return WillPopScope(
@@ -65,94 +65,99 @@ class Homepage extends StatelessWidget {
           ],
         ),
         body: 
-           ListView.separated(
-            separatorBuilder: (context, index) => kheight10,
-            itemCount: homeprovider.filteredStudents.length,
-            itemBuilder: (context, index) {
-              var student = homeprovider.filteredStudents[index];
-
-              return InkWell(
-                onTap: () {
-                  StudentDialog.showStudentDialog(
-                    context,
-                    student
-                  );
-                },
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                  padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    color: backgroundcolor,
-                    borderRadius: BorderRadius.circular(16.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                 
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12.0),
-                            child: Container(
-                              width: 120,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: FileImage(File(student.image)),
-                                  fit: BoxFit.cover,
+           Consumer<HomePageProvider>(
+            builder: (context, homeprovider, child) {
+               return  ListView.separated(
+              separatorBuilder: (context, index) => kheight10,
+              itemCount: homeprovider.students.length,
+              itemBuilder: (context, index) {
+                var student = homeprovider.students[index];
+             
+                return InkWell(
+                  onTap: () {
+                    StudentDialog.showStudentDialog(
+                      context,
+                      student
+                    );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: backgroundcolor,
+                      borderRadius: BorderRadius.circular(16.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                   
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(12.0),
+                              child: Container(
+                                width: 120,
+                                height: 120,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: FileImage(File(student.image)),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 36),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  student.name,
-                                  style: const TextStyle(
-                                    fontSize: 24,
-                                    color: kwhite,
-                                    fontWeight: FontWeight.bold,
+                            const SizedBox(width: 36),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    student.name,
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      color: kwhite,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Course: ${student.course}',
-                                  style: const TextStyle(
-                                    color: kwhite,
-                                    fontSize: 18,
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Course: ${student.course}',
+                                    style: const TextStyle(
+                                      color: kwhite,
+                                      fontSize: 18,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Age: ${student.age}',
-                                  style: const TextStyle(
-                                    color: kwhite,
-                                    fontSize: 18,
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Age: ${student.age}',
+                                    style: const TextStyle(
+                                      color: kwhite,
+                                      fontSize: 18,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                  
-                    ],
-                  ),
-                )
-              );
+                          ],
+                        ),
+                    
+                      ],
+                    ),
+                  )
+                );
+              },
+                       );
             },
-          ),
+            
+           ),
         
         floatingActionButton: FloatingActionButton(
           backgroundColor: const Color.fromARGB(255, 152, 169, 238),
